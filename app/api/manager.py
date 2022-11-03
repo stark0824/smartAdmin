@@ -7,9 +7,9 @@
 # +----------------------------------------------------------------------
 from app.libs.BaseRoutes import BaseRoutes
 
-api = BaseRoutes('login')
+api = BaseRoutes('manager')
 
 
-@api.route('/login/loginHandle', methods=['GET', 'POST'])
-def loginHandle():
-    return "login Hello"
+@api.route('/manager/getInfo', methods=['POST'])
+def getInfo():
+    return "getInfo"

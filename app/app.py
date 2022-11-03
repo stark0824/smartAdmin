@@ -19,5 +19,5 @@ def create_app():
 
 
 def register_blue(app):
-    from app.api.login import login
-    app.register_blueprint(login)
+    from app.api import create_blueprint_api
+    app.register_blueprint(create_blueprint_api(), url_prefix='/api')
