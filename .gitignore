@@ -1,3 +1,4 @@
 .idea/
 Pipfile
 /app/config/*
+Pipfile.lock
