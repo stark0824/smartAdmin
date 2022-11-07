@@ -6,6 +6,7 @@
 # | Desc: 智慧后台 v0.1 - 入口文件
 # +----------------------------------------------------------------------
 from flask import Flask
+from app.models.base import db
 
 
 def create_app():
@@ -15,6 +16,11 @@ def create_app():
     app.config.from_object('app.config.secure')
     # 注册并导入蓝图
     register_blue(app)
+    # 初始化数据库
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+
     return app
 
 
