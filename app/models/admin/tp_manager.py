@@ -7,17 +7,21 @@
 # +----------------------------------------------------------------------
 from sqlalchemy import Column, Integer, String, SmallInteger
 
-from app.models.base import Base
+from app.models.base import Base, db
 
 
 class tp_manager(Base):
+
+    STATUS_NORMAL = 1
+    STATUS_STOP = 0
+
     __tablename__ = 'tp_manager'
     id = Column(Integer(), primary_key=True, autoincrement=True)
     username = Column(String(20), nullable=False, comment="登录名")
     _password = Column('password', String(64), nullable=False, comment="密码")
     nickname = Column(String(30), nullable=False, comment="昵称")
     headimg = Column(String(255), default="/admin/images/default_head.png", comment="头像")
-    job = Column(String(20), default="/admin/images/default_head.png", comment="工作职位")
+    job = Column(String(20), default="", comment="工作职位")
     mobile = Column(String(20), default=None, comment="手机号码")
     email = Column(String(50), default=None, comment="邮箱地址")
     role_id = Column(String(255), default=None, comment="角色id字符串以逗号分隔")
@@ -41,4 +45,19 @@ class tp_manager(Base):
         # 处理加密的方法
         # self._password = generate_password_hash(raw)
         pass
+
+    @classmethod
+    def get_manager_by_name(cls, username):
+        r = cls.query.filter(cls.username == username, cls.status == cls.STATUS_NORMAL).one()
+        return r
+
+    @classmethod
+    def get_manager_info(cls, primary_key):
+        r = cls.query.filter(cls.id == primary_key).one()
+        return r
+
+    @classmethod
+    def get_db(cls):
+        r = db.session.query(cls).filter(cls.status == cls.STATUS_NORMAL).all()
+        return r
 

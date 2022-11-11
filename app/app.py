@@ -5,7 +5,9 @@
 # +----------------------------------------------------------------------
 # | Desc: 智慧后台 v0.1 - 入口文件
 # +----------------------------------------------------------------------
-from flask import Flask
+from flask import Flask,session
+
+from app.libs.memory import show_memory_info, show_memory_count
 from app.models.base import db
 
 
@@ -20,7 +22,8 @@ def create_app():
     db.init_app(app)
     with app.app_context():
         db.create_all()
-
+    show_memory_info('create_app')
+    show_memory_count(app)
     return app
 
 

@@ -6,8 +6,11 @@
 # | Desc: 智慧后台 v0.1
 # +----------------------------------------------------------------------
 from app.app import create_app
+from app.libs.memory import show_memory_info
 
 app = create_app()
+
+show_memory_info('Flask Start')
 
 if __name__ == '__main__':
     app.run(debug=True, port=9090, host='0.0.0.0')

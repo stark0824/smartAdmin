@@ -7,8 +7,11 @@
 # +----------------------------------------------------------------------
 from sqlalchemy import Column, Integer, String, SMALLINT
 from flask_sqlalchemy import SQLAlchemy
+from app.libs.memory import show_memory_info
 
 db = SQLAlchemy()
+
+show_memory_info('loader models')
 
 
 class Base(db.Model):
@@ -20,6 +23,3 @@ class Base(db.Model):
         for key, value in attrs_dict.items():
             if hasattr(self, key) and key != 'id':
                 setattr(self, key, value)
-
-
-
